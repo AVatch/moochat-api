@@ -9,6 +9,9 @@ from rest_framework.response import Response
 from .models import Account
 from .serializers import AccountSerializer
 
+from threads.models import Thread
+from threads.serializers import ThreadSerializer
+
 
 class AccountList(generics.ListAPIView):
     """
@@ -60,3 +63,15 @@ class MeDetail(APIView):
         me = request.user
         serializer = AccountSerializer(me, context={'request': request})
         return Response(serializer.data)
+
+
+class AccountThreads(generics.ListAPIView):
+    """
+    """
+    serializer_class = ThreadSerializer
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+    def get_queryset(self):
+        user = get_object_or_404(Account, pk=self.kwargs['pk'])
+        return Thread.objects.filter(participants=user)
