@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^api/v1/$', views.api_root),
 
     url(r'^', include('accounts.urls')),
+    url(r'^', include('threads.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()

@@ -15,4 +15,5 @@ def api_root(request, format=None):
     return Response({
         'me': reverse('me-detail', request=request, format=format),
         'accounts': reverse('account-list', request=request, format=format),
+        'threads': reverse('thread-list', request=request, format=format),
     })
