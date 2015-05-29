@@ -46,6 +46,7 @@ THIRD_PARTY_APPS = (
 
 APPS = (
     'accounts',
+    'threads',
 )
 
 INSTALLED_APPS = CORE_APPS + THIRD_PARTY_APPS + APPS
