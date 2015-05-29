@@ -38,7 +38,7 @@ class AccountCreate(generics.CreateAPIView):
 
 class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     """
-    URL: /api/v1/account/<pk>/
+    URL: /api/v1/accounts/<pk>/
     Methods: GET, PUT, DELETE
     Returns: Handle an individual account object
     """
@@ -47,6 +47,21 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = (authentication.SessionAuthentication,
                               authentication.TokenAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
+
+
+class AccountThreads(generics.ListAPIView):
+    """
+    URL: /api/v1/accounts/<pk>/threads/
+    Methods: GET, PUT, DELETE
+    Returns: Handle an individual account object
+    """
+    serializer_class = ThreadSerializer
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+    def get_queryset(self):
+        user = get_object_or_404(Account, pk=self.kwargs['pk'])
+        return Thread.objects.filter(participants=user)
 
 
 class MeDetail(APIView):
@@ -63,15 +78,3 @@ class MeDetail(APIView):
         me = request.user
         serializer = AccountSerializer(me, context={'request': request})
         return Response(serializer.data)
-
-
-class AccountThreads(generics.ListAPIView):
-    """
-    """
-    serializer_class = ThreadSerializer
-    authentication_classes = (authentication.SessionAuthentication,
-                              authentication.TokenAuthentication)
-    permission_classes = (permissions.IsAuthenticated,)
-    def get_queryset(self):
-        user = get_object_or_404(Account, pk=self.kwargs['pk'])
-        return Thread.objects.filter(participants=user)
