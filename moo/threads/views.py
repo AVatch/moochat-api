@@ -1,6 +1,11 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework import generics
 from rest_framework import authentication
 from rest_framework import permissions
+
+from notes.models import Note
+from notes.serializers import NoteSerializer
 
 from .models import Thread
 from .serializers import ThreadSerializer
@@ -36,4 +41,18 @@ class ThreadDetail(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = (authentication.SessionAuthentication,
                               authentication.TokenAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
-   
+
+
+class ThreadNotes(generics.ListAPIView):
+    """
+    URL: /api/v1/threads/<pk>/notes/
+    Methods: GET
+    Returns: Pull all notes in the threads
+    """
+    serializer_class = NoteSerializer
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+    def get_queryset(self):
+        thread = get_object_or_404(Thread, pk=self.kwargs['pk'])
+        return Note.objects.filter(thread=thread)

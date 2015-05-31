@@ -14,5 +14,9 @@ urlpatterns = format_suffix_patterns([
     url(r'^api/v1/threads/(?P<pk>[0-9]+)/$',
         views.ThreadDetail.as_view(),
         name='thread-detail'),
+        
+    url(r'^api/v1/threads/(?P<pk>[0-9]+)/notes/$',
+        views.ThreadNotes.as_view(),
+        name='thread-notes'),
 
 ])
