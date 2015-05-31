@@ -6,7 +6,7 @@ from .models import Note
 from .serializers import NoteSerializer
 
 
-class NoteList(generics.ListAPIView):
+class NoteList(generics.ListCreateAPIView):
     """
     URL: /api/v1/notes/
     Methods: GET
@@ -18,3 +18,6 @@ class NoteList(generics.ListAPIView):
                               authentication.TokenAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
  
+    def perform_create(self, serializer):
+        user = self.request.user
+        serializer.save(author=user)

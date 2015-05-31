@@ -23,3 +23,17 @@ class ThreadList(generics.ListCreateAPIView):
         user = self.request.user
         t = serializer.save()
         t.participants.add(user)
+
+
+class ThreadDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    URL: /api/v1/threads/<pk>/
+    Methods: GET, PUT, DELETE
+    Returns: Handle an individual thread object
+    """
+    queryset = Thread.objects.all()
+    serializer_class = ThreadSerializer
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+   
