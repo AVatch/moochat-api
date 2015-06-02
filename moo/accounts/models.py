@@ -40,6 +40,7 @@ class Account(AbstractBaseUser):
     first_name = models.CharField(max_length=60, blank=True)
     last_name = models.CharField(max_length=60, blank=True)
     phonenumber = models.CharField(max_length=15, blank=True)
+    friends = models.ManyToManyField("self", blank=True, null=True)
 
     is_admin = models.BooleanField(default=False)
     is_manager = models.BooleanField(default=False)
@@ -60,6 +61,9 @@ class Account(AbstractBaseUser):
 
     def get_full_name(self):
         return ' '.join([self.first_name, self.last_name])
+    
+    def add_friend(self, account):
+        self.friends.add(account)
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

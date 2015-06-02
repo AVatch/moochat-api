@@ -52,8 +52,8 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
 class AccountThreads(generics.ListAPIView):
     """
     URL: /api/v1/accounts/<pk>/threads/
-    Methods: GET, PUT, DELETE
-    Returns: Handle an individual account object
+    Methods: GET
+    Returns: List all the threads of the user
     """
     serializer_class = ThreadSerializer
     authentication_classes = (authentication.SessionAuthentication,
@@ -62,6 +62,21 @@ class AccountThreads(generics.ListAPIView):
     def get_queryset(self):
         user = get_object_or_404(Account, pk=self.kwargs['pk'])
         return Thread.objects.filter(participants=user)
+
+
+class AccountFriends(generics.ListAPIView):
+    """
+    URL: /api/v1/accounts/<pk>/friends/
+    Methods: GET
+    Returns: List all the friends of the user
+    """
+    serializer_class = AccountSerializer
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+    def get_queryset(self):
+        user = get_object_or_404(Account, pk=self.kwargs['pk'])
+        return user.friends.all()
 
 
 class MeDetail(APIView):
