@@ -64,6 +64,9 @@ class Account(AbstractBaseUser):
     
     def add_friend(self, account):
         self.friends.add(account)
+        account.friends.add(self)
+        self.save()
+        account.save()
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

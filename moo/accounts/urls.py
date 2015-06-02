@@ -27,6 +27,10 @@ urlpatterns = format_suffix_patterns([
    url(r'^api/v1/accounts/(?P<pk>[0-9]+)/friends/$',
         views.AccountFriends.as_view(),
         name='account-friends'),
+        
+   url(r'^api/v1/accounts/(?P<pk>[0-9]+)/add/friend/$',
+        views.FriendAccount.as_view(),
+        name='account-add-friend'),
 
     url(r'^api/v1/me/$',
         views.MeDetail.as_view(),

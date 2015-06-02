@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework import authentication
 from rest_framework import permissions
 from rest_framework.views import APIView
@@ -78,6 +78,31 @@ class AccountFriends(generics.ListAPIView):
         user = get_object_or_404(Account, pk=self.kwargs['pk'])
         return user.friends.all()
 
+
+class FriendAccount(APIView):
+    """
+    URL: /api/v1/accounts/<pk>/add/friend/
+    Methods: POST
+    Returns: Make a user a friend
+    """
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, pk, format=None):
+        me = request.user
+        target = Account.objects.get(pk=pk)
+
+        if target == me:
+            return Response(status=status.HTTP_409_CONFLICT)
+        
+        me.add_friend(target)
+
+#        me.friends.add(target)
+#        target.friends.add(me)
+#        me.save()
+#        target.save()
+        return Response(status=status.HTTP_200_OK)
 
 class MeDetail(APIView):
     """
