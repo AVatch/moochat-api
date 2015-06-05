@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     url(r'^', include('accounts.urls')),
     url(r'^', include('threads.urls')),
     url(r'^', include('notes.urls')),
+    url(r'^', include('gifs.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()

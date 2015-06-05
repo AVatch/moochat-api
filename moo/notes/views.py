@@ -21,3 +21,15 @@ class NoteList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         user = self.request.user
         serializer.save(author=user)
+
+class NoteDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    URL: /api/v1/notes/<pk>
+    Methods: GET
+    Returns: List of notes
+    """
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)

@@ -10,5 +10,8 @@ urlpatterns = format_suffix_patterns([
     url(r'^api/v1/notes/$',
         views.NoteList.as_view(),
         name='note-list'),
-
+    
+    url(r'^api/v1/notes/(?P<pk>[0-9]+)/$',
+        views.NoteDetail.as_view(),
+        name='note-detail'),
 ])
