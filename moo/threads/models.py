@@ -8,7 +8,7 @@ class Thread(models.Model):
     time_updated = models.DateTimeField(auto_now=True)
     
     class Meta:
-        ordering = ('time_created', )
+        ordering = ('-time_updated', )
         
     def add_participant(self, account):
         pass

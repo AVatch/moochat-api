@@ -15,7 +15,7 @@ def query_giphy(q):
         gifs = []
         for i, v in enumerate(data['data']):
             gifs.append(v['images']['original'])
-        return gifs
+        return gifs[:15]
     except Exception as e:
         print e
         return []
