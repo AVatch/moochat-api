@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import Account
-from .serializers import AccountSerializer
+from .serializers import AccountSerializer, AccountSearchSerializer
 
 from threads.models import Thread
 from threads.serializers import ThreadSerializer

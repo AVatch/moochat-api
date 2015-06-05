@@ -32,3 +32,7 @@ class AccountSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+class AccountSearchSerializer(serializers.Serializer):
+    query = serializers.CharField()
