@@ -7,6 +7,7 @@ from django.dispatch import receiver
 
 from rest_framework.authtoken.models import Token
 
+from gifs.giphy import random_giphy
 
 class AccountManager(BaseUserManager):
     def create_user(self, password=None, **kwargs):
@@ -36,7 +37,7 @@ class AccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
     username = models.CharField(max_length=40, unique=True)
-    profile_picture_url = models.URLField(default="http://placehold.it/150x150")
+    profile_picture_url = models.URLField(blank=True, default=random_giphy()['image_original_url'])
     first_name = models.CharField(max_length=60, blank=True)
     last_name = models.CharField(max_length=60, blank=True)
     phonenumber = models.CharField(max_length=15, blank=True)
