@@ -37,11 +37,11 @@ class AccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
     username = models.CharField(max_length=40, unique=True)
-    profile_picture_url = models.URLField(blank=True, default=random_giphy()['image_original_url'])
+    profile_picture_url = models.URLField(blank=True, default='http://placehold.it/350x350')
     first_name = models.CharField(max_length=60, blank=True)
     last_name = models.CharField(max_length=60, blank=True)
     phonenumber = models.CharField(max_length=15, blank=True)
-    friends = models.ManyToManyField("self", blank=True, null=True)
+    friends = models.ManyToManyField("self")
 
     is_admin = models.BooleanField(default=False)
     is_manager = models.BooleanField(default=False)

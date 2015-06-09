@@ -28,7 +28,7 @@ def random_giphy():
         req = urllib2.Request(endpoint, headers={'User-Agent' : "Magic Browser"}) 
         response = urllib2.urlopen(req)
         data = json.load(response)
-        return data['data']
+        return data['data']['image_url']
     except Exception as e:
         print e
         return {}

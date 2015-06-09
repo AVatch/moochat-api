@@ -27,3 +27,22 @@ class GifSearch(APIView):
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
+
+class GifRandom(APIView):
+    """
+    URL: /api/v1/gif/random/
+    """
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        try:
+            gif = random_giphy()
+            response = {'results': gif}
+            return Response(response,
+                        status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
