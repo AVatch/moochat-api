@@ -97,7 +97,8 @@ class FriendAccount(APIView):
             return Response(status=status.HTTP_409_CONFLICT)
         
         me.add_friend(target)
-        return Response(status=status.HTTP_200_OK)
+        return Response(AccountSerializer(target).data, 
+                        status=status.HTTP_200_OK)
 
 
 class SearchAccount(APIView):
@@ -114,9 +115,12 @@ class SearchAccount(APIView):
         serializer = AccountSearchSerializer(data=request.data)
         if serializer.is_valid():
             query = serializer.data['query']
-            results = Account.objects.get(username=query)
-            return Response(AccountSerializer(results).data,
+            try:
+                results = Account.objects.get(username=query)
+                return Response(AccountSerializer(results).data,
                             status=status.HTTP_200_OK)
+            except:
+                return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
