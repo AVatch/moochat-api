@@ -16,6 +16,10 @@ urlpatterns = format_suffix_patterns([
         views.AccountCreate.as_view(),
         name='account-create'),
 
+    url(r'^api/v1/accounts/search/',
+        views.SearchAccount.as_view(),
+        name='account-search'),
+
     url(r'^api/v1/accounts/(?P<pk>[0-9]+)/$',
         views.AccountDetail.as_view(),
         name='account-detail'),

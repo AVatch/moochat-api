@@ -33,10 +33,6 @@ class GifRandom(APIView):
     """
     URL: /api/v1/gif/random/
     """
-    authentication_classes = (authentication.SessionAuthentication,
-                              authentication.TokenAuthentication)
-    permission_classes = (permissions.IsAuthenticated,)
-
     def get(self, request):
         try:
             gif = random_giphy()

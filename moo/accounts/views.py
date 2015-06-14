@@ -97,12 +97,30 @@ class FriendAccount(APIView):
             return Response(status=status.HTTP_409_CONFLICT)
         
         me.add_friend(target)
-
-#        me.friends.add(target)
-#        target.friends.add(me)
-#        me.save()
-#        target.save()
         return Response(status=status.HTTP_200_OK)
+
+
+class SearchAccount(APIView):
+    """
+    URL: /api/v1/accounts/search/
+    Methods: POST
+    Returns: Search for a user by username
+    """
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, format=None):
+        serializer = AccountSearchSerializer(data=request.data)
+        if serializer.is_valid():
+            query = serializer.data['query']
+            results = Account.objects.get(username=query)
+            return Response(AccountSerializer(results).data,
+                            status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+
 
 class MeDetail(APIView):
     """
