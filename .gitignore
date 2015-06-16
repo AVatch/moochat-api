@@ -1,5 +1,6 @@
 *.pem
 env/
+migrations/
 *.sqlite3
 *.pyc
 .DS_Store
