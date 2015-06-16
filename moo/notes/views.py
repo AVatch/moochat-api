@@ -12,7 +12,7 @@ class NoteList(generics.ListCreateAPIView):
     Methods: GET
     Returns: List of notes
     """
-    queryset = Note.objects.all()
+    queryset = Note.objects.all().order_by('-time_created',)
     serializer_class = NoteSerializer
     authentication_classes = (authentication.SessionAuthentication,
                               authentication.TokenAuthentication)

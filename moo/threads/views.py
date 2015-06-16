@@ -69,4 +69,4 @@ class ThreadNotes(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     def get_queryset(self):
         thread = get_object_or_404(Thread, pk=self.kwargs['pk'])
-        return Note.objects.filter(thread=thread)
+        return Note.objects.filter(thread=thread).order_by('-time_created',)
