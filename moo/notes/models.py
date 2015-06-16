@@ -13,5 +13,5 @@ class Note(models.Model):
     time_updated = models.DateTimeField(auto_now=True)
     
     class Meta:
-        ordering = ('-time_created', )
+        ordering = ('time_created', )
     
