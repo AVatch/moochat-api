@@ -132,9 +132,9 @@ class MeDetail(APIView):
     Methods: GET
     Returns: Account object of the authenticated user making the request.
     """
-    authentication_classes = (authentication.SessionAuthentication,
-                              authentication.TokenAuthentication)
-    permission_classes = (permissions.IsAuthenticated,)
+    # authentication_classes = (authentication.SessionAuthentication,
+    #                           authentication.TokenAuthentication)
+    # permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, format=None):
         me = request.user
