@@ -4,10 +4,9 @@ import json
 
 def query_giphy(q):
     k = "dc6zaTOxFJmzC"
-    q.strip().replace(' ', '+')
+    q = q.strip().replace(' ', '+')
     endpoint = "http://api.giphy.com/v1/gifs/search?q=" + q \
                + "&api_key=" + k
-    
     try:
         req = urllib2.Request(endpoint, headers={'User-Agent' : "Magic Browser"}) 
         response = urllib2.urlopen(req)

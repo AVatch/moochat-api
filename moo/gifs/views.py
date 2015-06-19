@@ -19,6 +19,7 @@ class GifSearch(APIView):
     def post(self, request, format=None):
         serializer = GifSearchSerializer(data=request.data)
         if serializer.is_valid():
+            print "|"*50
             query = serializer.data['query']
             results = query_giphy(query)
             response = {'results': results}
