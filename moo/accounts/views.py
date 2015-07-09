@@ -12,6 +12,9 @@ from .serializers import AccountSerializer, AccountSearchSerializer
 from threads.models import Thread
 from threads.serializers import ThreadSerializer
 
+from gifs.models import Gif
+from gifs.serializers import GifSerializer
+
 
 class AccountList(generics.ListAPIView):
     """
@@ -77,6 +80,21 @@ class AccountFriends(generics.ListAPIView):
     def get_queryset(self):
         user = get_object_or_404(Account, pk=self.kwargs['pk'])
         return user.friends.all()
+
+
+class AccountLikedGifs(generics.ListAPIView):
+    """
+    URL: /api/v1/accounts/<pk>/gifs/
+    Methods: GET
+    Returns: 
+    """
+    serializer_class = GifSerializer
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+    def get_queryset(self):
+        user = get_object_or_404(Account, pk=self.kwargs['pk'])
+        return user.liked_gifs.all()
 
 
 class FriendAccount(APIView):
