@@ -19,15 +19,17 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 import views
 
+VERSION = 'v1'
+
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^api/v1/$', views.api_root),
+    url(r'^api/' + VERSION + '/$', views.api_root),
 
-    url(r'^', include('accounts.urls')),
-    url(r'^', include('threads.urls')),
-    url(r'^', include('notes.urls')),
-    url(r'^', include('gifs.urls')),
+    url(r'^api/' + VERSION + '/', include('accounts.urls')),
+    url(r'^api/' + VERSION + '/', include('threads.urls')),
+    url(r'^api/' + VERSION + '/', include('notes.urls')),
+    url(r'^api/' + VERSION + '/', include('gifs.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()

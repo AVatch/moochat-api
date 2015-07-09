@@ -34,6 +34,5 @@ def random_giphy():
 
 
 if __name__ == '__main__':
-#    query_giphy("yolo")
-#    print random_giphy()
+    print query_giphy("yolo")
     pass

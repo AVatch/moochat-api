@@ -7,7 +7,9 @@ from django.dispatch import receiver
 
 from rest_framework.authtoken.models import Token
 
+from gifs.models import Gif
 from gifs.giphy import random_giphy
+
 
 class AccountManager(BaseUserManager):
     def create_user(self, password=None, **kwargs):
@@ -42,6 +44,7 @@ class Account(AbstractBaseUser):
     last_name = models.CharField(max_length=60, blank=True)
     phonenumber = models.CharField(max_length=15, blank=True)
     friends = models.ManyToManyField("self")
+    liked_gifs = models.ManyToManyField(Gif, related_name='accounts')
 
     is_admin = models.BooleanField(default=False)
     is_manager = models.BooleanField(default=False)

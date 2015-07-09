@@ -5,8 +5,35 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+
+
 from gifs.serializers import GifSearchSerializer
 from gifs.giphy import query_giphy, random_giphy
+
+
+class LikeGif(APIView):
+    """
+    """
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+    def post(self, request, pk, format=None):
+        user = self.request.user
+        return Response({})
+
+
+class UnlikeGif(APIView):
+    """
+    """
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+    def post(self, request, pk, format=None):
+        user = self.request.user
+        return Response({})
+
+
+
 
 class GifSearch(APIView):
     """
@@ -19,7 +46,6 @@ class GifSearch(APIView):
     def post(self, request, format=None):
         serializer = GifSearchSerializer(data=request.data)
         if serializer.is_valid():
-            print "|"*50
             query = serializer.data['query']
             results = query_giphy(query)
             response = {'results': results}
