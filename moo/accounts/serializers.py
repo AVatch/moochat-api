@@ -38,7 +38,7 @@ class FieldSerializer(serializers.Serializer):
     phonenumber = serializers.CharField()
 
 class AccountSearchSerializer(serializers.Serializer):
-    username = serializers.CharField(required=False)
-    first_name = serializers.CharField(required=False)
-    last_name = serializers.CharField(required=False)
-    phonenumber = FieldSerializer(required=False, many=True)
+    username = serializers.CharField(allow_blank=True, required=False)
+    first_name = serializers.CharField(allow_blank=True, required=False)
+    last_name = serializers.CharField(allow_blank=True, required=False)
+    number = FieldSerializer(required=False, many=True)

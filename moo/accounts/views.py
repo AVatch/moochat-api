@@ -134,24 +134,21 @@ class SearchAccount(APIView):
         results = []
 
         if serializer.is_valid():
-            
-            print serializer.data
-
             if serializer.data['username']:
                 try:
-                    results = Account.objects.get(username=serializer.data['username'])
-                    return Response(AccountSerializer(results).data,
-                                status=status.HTTP_200_OK)
-                except:
+                    a = Account.objects.get(username=serializer.data['username'])
+                    results.append(AccountSerializer(a).data)
+                    return Response(results, status=status.HTTP_200_OK)
+                except Exception as e:
                     return Response(status=status.HTTP_404_NOT_FOUND)
         
             elif serializer.data['number']:
                 try:
                     for number in serializer.data['number']:
-                        results.append(Account.objects.get(phonenumber=number))
-                    return Response(AccountSerializer(results).data,
-                                status=status.HTTP_200_OK)
-                except:
+                        a = Account.objects.get(phonenumber=number)
+                        results.append(AccountSerializer(a).data)
+                    return Response(results, status=status.HTTP_200_OK)
+                except Exception as e:
                     return Response(status=status.HTTP_404_NOT_FOUND)
 
             
