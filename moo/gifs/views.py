@@ -5,10 +5,35 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from .models import Gif
+from .serializers import GifSerializer, GifSearchSerializer
+from .giphy import query_giphy, random_giphy
 
 
-from gifs.serializers import GifSearchSerializer
-from gifs.giphy import query_giphy, random_giphy
+class GifList(generics.ListCreateAPIView):
+    """
+    URL: /api/v1/gifs/
+    Methods: GET
+    Returns: List of gifs
+    """
+    queryset = Gif.objects.all()
+    serializer_class = GifSerializer
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+
+
+class GifDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    URL: /api/v1/gifs/<pk>
+    Methods: GET
+    Returns: return teh gif
+    """
+    queryset = Gif.objects.all()
+    serializer_class = GifSerializer
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
 
 
 class LikeGif(APIView):

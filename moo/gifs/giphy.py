@@ -14,7 +14,7 @@ def query_giphy(q):
         gifs = []
         for i, v in enumerate(data['data']):
             gifs.append(v['images']['original'])
-        return gifs[:15]
+        return gifs[:]
     except Exception as e:
         print e
         return []
@@ -34,5 +34,5 @@ def random_giphy():
 
 
 if __name__ == '__main__':
-    print query_giphy("yolo")
+    # query_giphy("yolo")
     pass

@@ -17,6 +17,7 @@ def api_root(request, format=None):
         'accounts': reverse('account-list', request=request, format=format),
         'threads': reverse('thread-list', request=request, format=format),
         'notes': reverse('note-list', request=request, format=format),
+        'gifs': reverse('gif-list', request=request, format=format),
         'gif-search': reverse('gif-search', request=request, format=format),
         
     })
