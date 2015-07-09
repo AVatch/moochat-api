@@ -46,7 +46,7 @@ class LikeGif(APIView):
         user = self.request.user
         gif = Gif.objects.get(pk=pk)
         user.liked_gifs.add(gif)
-        return Response({})
+        return Response(status=status.HTTP_200_OK)
 
 
 class UnlikeGif(APIView):
@@ -59,7 +59,7 @@ class UnlikeGif(APIView):
         user = self.request.user
         gif = Gif.objects.get(pk=pk)
         user.liked_gifs.remove(gif)
-        return Response({})
+        return Response(status=status.HTTP_200_OK)
 
 
 

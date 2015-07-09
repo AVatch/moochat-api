@@ -34,5 +34,11 @@ class AccountSerializer(serializers.ModelSerializer):
         return instance
 
 
+class FieldSerializer(serializers.Serializer):
+    phonenumber = serializers.CharField()
+
 class AccountSearchSerializer(serializers.Serializer):
-    query = serializers.CharField()
+    username = serializers.CharField(required=False)
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
+    phonenumber = FieldSerializer(required=False, many=True)
