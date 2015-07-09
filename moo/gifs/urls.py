@@ -16,6 +16,14 @@ urlpatterns = format_suffix_patterns([
         views.GifDetail.as_view(),
         name='gif-detail'),
 
+    url(r'^gifs/(?P<pk>[0-9]+)/like/$',
+        views.LikeGif.as_view(),
+        name='gif-like'),
+
+    url(r'^gifs/(?P<pk>[0-9]+)/unlike/$',
+        views.UnlikeGif.as_view(),
+        name='gif-unlike'),
+
     url(r'^gif/search/$',
         views.GifSearch.as_view(),
         name='gif-search'),

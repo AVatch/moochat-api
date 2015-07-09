@@ -44,6 +44,8 @@ class LikeGif(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     def post(self, request, pk, format=None):
         user = self.request.user
+        gif = Gif.objects.get(pk=pk)
+        user.liked_gifs.add(gif)
         return Response({})
 
 
@@ -55,6 +57,8 @@ class UnlikeGif(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     def post(self, request, pk, format=None):
         user = self.request.user
+        gif = Gif.objects.get(pk=pk)
+        user.liked_gifs.remove(gif)
         return Response({})
 
 
