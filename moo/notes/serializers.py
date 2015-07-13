@@ -28,7 +28,7 @@ class NoteSerializer(serializers.ModelSerializer):
                                   content=validated_data['content'], 
                                   thread=validated_data['thread'])
 
-      t = Thread.objects.get(pk=validated_data['thread'])
+      t = validated_data['thread']
       t.time_updated = datetime.datetime.now()
       t.save()
       
