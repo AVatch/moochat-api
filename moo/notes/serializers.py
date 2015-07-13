@@ -1,6 +1,9 @@
+import datetime
+
 from rest_framework import serializers
 from accounts.serializers import AccountSerializer
 
+from threads.models import Thread
 from gifs.models import Gif
 from gifs.serializers import GifSerializer
 
@@ -24,5 +27,10 @@ class NoteSerializer(serializers.ModelSerializer):
           n = Note.objects.create(author=validated_data['author'],
                                   content=validated_data['content'], 
                                   thread=validated_data['thread'])
+
+      t = Thread.objects.get(pk=validated_data['thread'])
+      t.time_updated = datetime.datetime.now()
+      t.save()
+      
       return n
           
