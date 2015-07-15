@@ -84,7 +84,7 @@ class ThreadJoin(APIView):
                               authentication.TokenAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
 
-    def post(self, request, format=None):
+    def post(self, request, pk, format=None):
         me = request.user
         thread = get_object_or_404(Thread, pk=self.kwargs['pk'])
         thread.participants.add(me)
@@ -101,7 +101,7 @@ class ThreadLeave(APIView):
                               authentication.TokenAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
 
-    def post(self, request, format=None):
+    def post(self, request, pk, format=None):
         me = request.user
         thread = get_object_or_404(Thread, pk=self.kwargs['pk'])
         thread.participants.remove(me)
