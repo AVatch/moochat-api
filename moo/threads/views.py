@@ -74,7 +74,7 @@ class ThreadNotes(generics.ListAPIView):
         return Note.objects.filter(thread=thread).order_by('-time_created',)
 
 
-class ThreadJoin(APIView)
+class ThreadJoin(APIView):
     """
     URL: /api/v1/threads/<pk>/join
     Methods: POST
@@ -91,7 +91,7 @@ class ThreadJoin(APIView)
         return Response(status=status.HTTP_200_OK)
 
 
-class ThreadLeave(APIView)
+class ThreadLeave(APIView):
     """
     URL: /api/v1/threads/<pk>/leave
     Methods: POST
