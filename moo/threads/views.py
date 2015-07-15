@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework import authentication
 from rest_framework import permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from notes.models import Note
 from notes.serializers import NoteSerializer
@@ -70,3 +72,37 @@ class ThreadNotes(generics.ListAPIView):
     def get_queryset(self):
         thread = get_object_or_404(Thread, pk=self.kwargs['pk'])
         return Note.objects.filter(thread=thread).order_by('-time_created',)
+
+
+class ThreadJoin(APIView)
+    """
+    URL: /api/v1/threads/<pk>/join
+    Methods: POST
+    Returns: Join a thread
+    """
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, format=None):
+        me = request.user
+        thread = get_object_or_404(Thread, pk=self.kwargs['pk'])
+        thread.participants.add(me)
+        return Response(status=status.HTTP_200_OK)
+
+
+class ThreadLeave(APIView)
+    """
+    URL: /api/v1/threads/<pk>/leave
+    Methods: POST
+    Returns: Leave a thread
+    """
+    authentication_classes = (authentication.SessionAuthentication,
+                              authentication.TokenAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, format=None):
+        me = request.user
+        thread = get_object_or_404(Thread, pk=self.kwargs['pk'])
+        thread.participants.remove(me)
+        return Response(status=status.HTTP_200_OK)

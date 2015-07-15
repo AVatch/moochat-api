@@ -37,6 +37,8 @@ class AccountCreate(generics.CreateAPIView):
     """
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+    authentication_classes = set()
+    permission_classes = set()
 
 
 class AccountDetail(generics.RetrieveUpdateDestroyAPIView):

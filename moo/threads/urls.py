@@ -23,4 +23,12 @@ urlpatterns = format_suffix_patterns([
         views.ThreadNotes.as_view(),
         name='thread-notes'),
 
+    url(r'^threads/(?P<pk>[0-9]+)/join/$',
+        views.ThreadJoin.as_view(),
+        name='thread-join'),
+
+    url(r'^threads/(?P<pk>[0-9]+)/leave/$',
+        views.ThreadLeave.as_view(),
+        name='thread-leave'),
+
 ])
