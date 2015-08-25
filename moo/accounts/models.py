@@ -43,8 +43,8 @@ class Account(AbstractBaseUser):
     first_name = models.CharField(max_length=60, blank=True)
     last_name = models.CharField(max_length=60, blank=True)
     phonenumber = models.CharField(max_length=15, blank=True)
-    friends = models.ManyToManyField("self")
-    liked_gifs = models.ManyToManyField(Gif, related_name='accounts')
+    friends = models.ManyToManyField("self", null=True)
+    liked_gifs = models.ManyToManyField(Gif, related_name='accounts', null=True)
 
     is_admin = models.BooleanField(default=False)
     is_manager = models.BooleanField(default=False)
