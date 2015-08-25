@@ -3,8 +3,8 @@ from .models import Account
 
 
 class AccountSerializer(serializers.ModelSerializer):
-    friends = CharField(allow_blank=True, max_length=100, required=False)
-    liked_gifs = CharField(allow_blank=True, max_length=100, required=False)
+    friends = serializers.CharField(allow_blank=True, max_length=100, required=False)
+    liked_gifs = serializers.CharField(allow_blank=True, max_length=100, required=False)
 
     class Meta:
         model = Account
